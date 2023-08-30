@@ -31,6 +31,12 @@ void CWndAddClass::DoDataExchange(CDataExchange* pDX)
 }
 
 
+BOOL CWndAddClass::OnInitDialog() {
+	CDialogEx::OnInitDialog();
+	UpdateData(FALSE);
+	return TRUE;
+}
+
 BEGIN_MESSAGE_MAP(CWndAddClass, CDialogEx)
 	
 	ON_BN_CLICKED(IDOK, &CWndAddClass::OnBnClickedOk)
@@ -43,7 +49,6 @@ END_MESSAGE_MAP()
 
 void CWndAddClass::OnBnClickedOk() {
 	// TODO: 在此添加控件通知处理程序代码
-	UpdateData(FALSE);
 	UpdateData(TRUE);
 	CDialogEx::OnOK();
 

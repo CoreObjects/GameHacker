@@ -6,7 +6,7 @@
 #include "CWndInject.h"
 #include "CWndInjectDetection.h"
 #include "CWndAddGame.h"
-//#include "CWndRAN.h"
+#include "CWndRAN.h"
 
 // CGameHackerDlg 对话框
 class CGameHackerDlg : public CDialogEx

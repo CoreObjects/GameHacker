@@ -6,20 +6,16 @@ public:
 			delete[]szData;
 		}
 	}
-
-	COBJContext() {
-		lpAddress = NULL;
-		dwSize = 0;
-		szData = 0;
-	}
 	/*COBJContext(const wchar_t* szIniFilePath);*/
+	COBJContext(const wchar_t* folder = nullptr);
 	COBJContext(const wchar_t* folder, const wchar_t* _name);
 	COBJContext(const wchar_t* folder, const wchar_t* _name, const wchar_t* _address, DWORD _size, const wchar_t* note);
 	BOOL UptateData(HANDLE _hProcess);
 	void Save();
-	void Set(const wchar_t* _name, const wchar_t* _address, DWORD _size, const wchar_t* note,bool bIsSet = true);
-	void deleteFile() {
-		DeleteFile(strIniFile);
+	void SetPath(const wchar_t* folder);
+	void SetContext(const wchar_t* _name, const wchar_t* _address, DWORD _size, const wchar_t* note);
+	bool deleteFile() {
+		return DeleteFile(strIniPath + L"\\" + strClassName + L".ini");
 	}
 	CString& GetClassName() {
 		return strClassName;
@@ -39,7 +35,6 @@ private:
 	DWORD dwSize{ 0 };
 	CString strClassName;
 	CString strNote;
-	CString strIniFile;
 	CString strIniPath;
 	char* szData{ 0 };
 };
@@ -50,8 +45,3 @@ typedef struct _TREE_DATA {
 	LPVOID DATA_PTR{ 0 };
 }TREE_DATA, * PTREE_DATA;
 
-////strNote
-//class strClassName {
-//
-//
-//};

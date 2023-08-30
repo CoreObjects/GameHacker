@@ -2,27 +2,39 @@
 #include "COBJContext.h"
 
 COBJContext::COBJContext(const wchar_t* folder, const wchar_t* _name) {
-
-	lpAddress = NULL;
-	dwSize = 0;
-	szData = 0;
+	lpAddress = nullptr;
+	strClassName = _name;
 	strIniPath = folder;
-	strIniFile = strIniPath + L"\\" + _name + L".ini";
-	wchar_t _address[MAX_PATH]{ 0 };
-	wchar_t _note[MAX_PATH]{ 0 };
-	GetPrivateProfileString(L"main", L"address", L"0", _address, 0xff, strIniFile);
+	szData = nullptr;
+	CString strIniFile = strIniPath + L"\\" + _name + L".ini";
+	wchar_t _wRead[MAX_PATH]{ 0 };
+	GetPrivateProfileString(L"main", L"address", L"0", _wRead, 0xff, strIniFile);
+	strAddress.Format(L"%s", _wRead);
+	GetPrivateProfileString(L"main", L"note", L"", _wRead, 0xff, strIniFile);
+	strNote.Format(L"%s", _wRead);
+	dwSize = GetPrivateProfileInt(L"main", L"size", 0, strIniFile);
+	szData = new char[dwSize] {0};
 
-	GetPrivateProfileString(L"main", L"note", L"", _note, 0xff, strIniFile);
-
-   DWORD _dwSize = GetPrivateProfileInt(L"main", L"size", 0, strIniFile);
-
-   Set(_name, _address, _dwSize, _note, false);
 }
 
 COBJContext::COBJContext(const wchar_t* folder, const wchar_t* _name, const wchar_t* _address, DWORD _size, const wchar_t* note) {
+	lpAddress = nullptr;
+	strAddress = _address;
+	dwSize = _size;
+	strClassName = _name;
+	strNote = note;
 	strIniPath = folder;
-	strIniFile = strIniPath + L"\\" + _name + L".ini";
-	Set(_name, _address, _size, note, false);
+	szData = new char[dwSize];
+}
+
+COBJContext::COBJContext(const wchar_t* folder /*= nullptr*/) {
+	lpAddress = nullptr;
+	strAddress = L"";
+	dwSize = 0;
+	strClassName = L"";
+	strNote = L"";
+	strIniPath = folder;
+	szData = nullptr;
 }
 
 BOOL COBJContext::UptateData(HANDLE _hProcess) {
@@ -33,29 +45,24 @@ void COBJContext::Save() {
 	//保存数据到文件
 	CString strSize;
 	strSize.Format(L"%d", dwSize);
+	CString strIniFile = strIniPath + L"\\" + strClassName + L".ini";
 	WritePrivateProfileString(L"main", L"address", strAddress, strIniFile);
 	WritePrivateProfileString(L"main", L"size", strSize, strIniFile);
 	WritePrivateProfileString(L"main", L"note", strNote, strIniFile);
-
 }
 
-void COBJContext::Set(const wchar_t* _name, const wchar_t* _address, DWORD _size, const wchar_t* note, bool bIsSet) {
-	
-	CString _strName;
-	_strName.Format(L"%s", _name);//名称改变
-	strAddress.Format(L"%s", _address);
-	strNote.Format(L"%s", note);
-	if (dwSize < _size) {
-		dwSize = _size;
-		if (szData != nullptr) delete[]szData;
-		szData = new char[dwSize];
-	}
-	lpAddress = (LPVOID)wcstoul(_address, 0, 16);
+void COBJContext::SetPath(const wchar_t* folder) {
+	strIniPath = folder;
+}
 
-	if (_strName != strClassName && bIsSet == true) {
-		DeleteFile(strIniFile);
-	}
-	strClassName = _strName;
-	strIniFile = strIniPath + L"\\" + _name + L".ini";
-	Save();
+void COBJContext::SetContext(const wchar_t* _name, const wchar_t* _address, DWORD _size, const wchar_t* note) {
+	
+	strClassName = _name;
+	lpAddress = (LPVOID)wcstoul(_address, 0, 16);
+	strAddress = _address;
+	dwSize = _size;
+	strNote = note;
+	if (szData != nullptr)
+		delete szData;
+	szData = new char[dwSize];
 }

@@ -38,8 +38,10 @@ public:
 		PTREE_DATA Val = (PTREE_DATA)m_Tree.GetItemData(h);
 		if (Val) {
 			COBJContext* p = (COBJContext*)Val->DATA_PTR;
-			if (p)p->deleteFile();
-			delete p;
+			if (p) {
+				p->deleteFile();
+				delete p;
+			}
 			delete Val;
 		}
 		m_Tree.DeleteItem(h);
@@ -66,9 +68,10 @@ public:
 	afx_msg void OnLoadGame();
 
 	HANDLE hProcess;
-	CString strAppPath;
-	CString strAnlyPath;
-	CString strAnlyData;
+	CString strAppPath;//E:\GameHacker\GameHacker\Release
+	CString strAnlyPath;//E:\GameHacker\GameHacker\Release\RAN\
+
+	CString strAnlyData;//E:\GameHacker\GameHacker\Release\RAN\GameHacker
 	afx_msg void OnAddClass();
 
 	void InsertOBJContext(COBJContext* obj);
@@ -76,5 +79,15 @@ public:
 	afx_msg void OnDeleteClass();
 	afx_msg void OnSetClass();
 
+	COBJContext* GetOBJPtr(HTREEITEM h);
 	COBJContext* GetSelectOBJPtr();
+
+	HTREEITEM GetSelectRootItem() {
+		auto hsel = m_Tree.GetSelectedItem();
+		auto hRoot = m_Tree.GetRootItem();
+		if (hsel == hRoot) return nullptr;
+		auto h = GetFirstItem(hsel);
+		return h;
+	}
+
 };

@@ -12,17 +12,14 @@
 IMPLEMENT_DYNAMIC(CWndRAN, CDialogEx)
 
 CWndRAN::CWndRAN(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_PAGE_2, pParent)
-{
+	: CDialogEx(IDD_PAGE_2, pParent) {
 	hProcess = nullptr;
 }
 
-CWndRAN::~CWndRAN()
-{
+CWndRAN::~CWndRAN() {
 }
 
-void CWndRAN::DoDataExchange(CDataExchange* pDX)
-{
+void CWndRAN::DoDataExchange(CDataExchange* pDX) {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_TREE1, m_Tree);
 	DDX_Control(pDX, IDC_LIST1, m_DataList);
@@ -61,19 +58,19 @@ void CWndRAN::OnBnClickedButton1() {
 	// TODO: 在此添加控件通知处理程序代码
 	auto ite = m_Tree.InsertItem(L"剑侠", TVI_ROOT);
 	auto jData = m_Tree.InsertItem(L"数据", ite);
-// 
-// 	m_Tree.GetRootItem();
-// 
-// 	//m_Tree.GetNextSiblingItem()
-// 	
-// 	m_Tree.DeleteItem(ite);
+	// 
+	// 	m_Tree.GetRootItem();
+	// 
+	// 	//m_Tree.GetNextSiblingItem()
+	// 	
+	// 	m_Tree.DeleteItem(ite);
 }
 
 
 void CWndRAN::OnContextMenu(CWnd* pWnd, CPoint point) {
 	// TODO: 在此处添加消息处理程序代码
 
-	
+
 
 	if (pWnd->GetDlgCtrlID() == IDC_TREE1) {
 		DWORD dwMenuID = 1;
@@ -85,7 +82,7 @@ void CWndRAN::OnContextMenu(CWnd* pWnd, CPoint point) {
 				else dwMenuID = 0;
 			}
 			else dwMenuID = 0;
-			
+
 		}
 		if (dwMenuID == 0)return;
 		// 加载菜单资源
@@ -101,19 +98,17 @@ void CWndRAN::OnContextMenu(CWnd* pWnd, CPoint point) {
 void CWndRAN::OnLoadGame() {
 	// TODO: 在此添加命令处理程序代码
 	if (m_SelectProcess.DoModal() == IDOK) {
+
 		hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, std::stoi(m_SelectProcess.strProcessId.GetBuffer()));
-		strAnlyData = m_SelectProcess.strProcessName;
-		strAnlyData.Replace(L".exe", L"");
-		
-		auto tRoot = InsertItemEx(strAnlyData, 2, NULL);
-			//m_Tree.InsertItem(m_SelectProcess.strProcessName, TVI_ROOT);
+
+		CString strProcess = m_SelectProcess.strProcessName;
+		strProcess.Replace(L".exe", L"");
+		auto tRoot = InsertItemEx(strProcess, 2, NULL);
+
 		InsertItemEx(L"Public Data", 3, NULL, tRoot);
 		InsertItemEx(L"Public Function", 4, NULL, tRoot);
 		InsertItemEx(L"Hook", 5, NULL, tRoot);
 
-// 		m_Tree.InsertItem(L"Public Data", tRoot);
-// 		m_Tree.InsertItem(L"Public Function", tRoot);
-// 		m_Tree.InsertItem(L"Hook", tRoot);
 		strAnlyData = strAnlyPath + m_SelectProcess.strProcessName;
 		strAnlyData.Replace(L".exe", L"");
 		if (!PathIsDirectory(strAnlyData)) {
@@ -152,7 +147,7 @@ void CWndRAN::OnAddClass() {
 				return;
 			}
 		}
-		COBJContext* obj = new COBJContext(strAnlyData, m_AddClass.m_ClassName,\
+		COBJContext* obj = new COBJContext(strAnlyData, m_AddClass.m_ClassName, \
 			m_AddClass.m_Address, m_AddClass.m_Size, m_AddClass.m_Note);
 		obj->Save();
 
@@ -168,7 +163,7 @@ void CWndRAN::InsertOBJContext(COBJContext* obj) {
 	CString strVal;
 	strVal = L"内存地址：" + obj->GetAddress();
 	InsertItemEx(strVal, 6, NULL, hBase);
-	strVal.Format(L"对象大小: %d", obj->GetSize());
+	strVal.Format(L"对象大小: [%d]", obj->GetSize());
 	InsertItemEx(strVal, 6, NULL, hBase);
 	strVal = L"注    释:" + obj->GetNote();
 	InsertItemEx(strVal, 6, NULL, hBase);
@@ -178,11 +173,7 @@ void CWndRAN::InsertOBJContext(COBJContext* obj) {
 
 void CWndRAN::OnDeleteClass() {
 	// TODO: 在此添加命令处理程序代码
-	auto hSel = m_Tree.GetSelectedItem();
-	auto hRoot = m_Tree.GetRootItem();
-	if (hSel == hRoot)return;
-	auto h = GetFirstItem(hSel);
-
+	auto h = GetSelectRootItem();
 	DeleteItemEx(h);
 
 }
@@ -190,22 +181,32 @@ void CWndRAN::OnDeleteClass() {
 
 void CWndRAN::OnSetClass() {
 	// TODO: 在此添加命令处理程序代码
-	 COBJContext* obj = GetSelectOBJPtr();
-	 m_AddClass.m_Address = obj->GetAddress(); m_AddClass.m_Note = obj->GetNote();
-	 m_AddClass.m_Size = obj->GetSize(); m_AddClass.m_ClassName = obj->GetClassName();
-	 if (m_AddClass.DoModal() == IDOK) {
-		 obj->Set(m_AddClass.m_ClassName, m_AddClass.m_Address, m_AddClass.m_Size, m_AddClass.m_Note, true);
-		 OnDeleteClass();
-		 obj->Save();
-		 InsertOBJContext(obj);
-	 }
+	auto h = GetSelectRootItem();
+	COBJContext* obj = GetOBJPtr(h);
+	m_AddClass.m_Address = obj->GetAddress();
+	m_AddClass.m_Note = obj->GetNote();
+	m_AddClass.m_Size = obj->GetSize();
+	m_AddClass.m_ClassName = obj->GetClassName();
+	if (m_AddClass.DoModal() == IDOK) {
+		DeleteItemEx(h);
+		obj = new COBJContext(strAnlyData, m_AddClass.m_ClassName, \
+			m_AddClass.m_Address, m_AddClass.m_Size, m_AddClass.m_Note);
+		obj->Save();
+		InsertOBJContext(obj);
+	}
 }
-
+COBJContext* CWndRAN::GetOBJPtr(HTREEITEM h) {
+	if (h) {
+		PTREE_DATA val = (PTREE_DATA)m_Tree.GetItemData(h);
+		if (val) {
+			COBJContext* obj = (COBJContext*)val->DATA_PTR;
+			return obj;
+		}
+	}
+	return nullptr;
+}
 COBJContext* CWndRAN::GetSelectOBJPtr() {
-	auto hsel = m_Tree.GetSelectedItem();
-	auto hRoot = m_Tree.GetRootItem();
-	if (hsel == hRoot) return nullptr;
-	auto h = GetFirstItem(hsel);
+	auto h = GetSelectRootItem();
 	if (h) {
 		PTREE_DATA val = (PTREE_DATA)m_Tree.GetItemData(h);
 		if (val) {

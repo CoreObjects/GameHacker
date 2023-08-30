@@ -114,7 +114,7 @@ BOOL CGameHackerDlg::OnInitDialog()
 	m_RAN.SetAppPath(strAppPath);
 	InstallPage(&m_Inject, IDD_PAGE_0, L"Inject", SW_SHOW);
 	InstallPage(&m_InjectDetection, IDD_PAGE_1, L"Injection Detection");
-	//InstallPage(&m_RAN, IDD_PAGE_2, L"RAN");
+	InstallPage(&m_RAN, IDD_PAGE_2, L"RAN");
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
