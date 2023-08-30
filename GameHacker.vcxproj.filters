@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Inject">
+      <UniqueIdentifier>{22c94d4e-0564-4900-a116-dfca3fd3cef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tool">
+      <UniqueIdentifier>{4532082f-e785-4f06-8a39-f449528010b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\InjectWnd">
+      <UniqueIdentifier>{65063888-2da9-4b4d-b8e0-19e2bed34afa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\InjectWnd">
+      <UniqueIdentifier>{2420107c-a844-4b04-8551-772c484f034b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\InjectDetectionWnd">
+      <UniqueIdentifier>{d3892685-6440-457b-ba3c-8ebd95b3f67f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\InjectDetection">
+      <UniqueIdentifier>{feb99ade-6ee5-4371-a9ea-395746acf2e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\mainWnd">
+      <UniqueIdentifier>{3139be34-c7f2-49d3-b5f1-f04cc1322eaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\mainWnd">
+      <UniqueIdentifier>{10e10753-1f50-46a1-9bde-38e55c2e95b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\RAN">
+      <UniqueIdentifier>{af61f7a0-d4a8-4719-b980-fb0476fcd73a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\RAN">
+      <UniqueIdentifier>{d5fbba6c-ff60-4528-a78c-2058dc8c41cb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="x86EntryPointInject.h">
+      <Filter>Inject</Filter>
+    </ClInclude>
+    <ClInclude Include="Tool.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="CWndAddGame.h">
+      <Filter>头文件\InjectWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="CWndInject.h">
+      <Filter>头文件\InjectWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="CWndInjectDetection.h">
+      <Filter>头文件\InjectDetectionWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="CWndProcessList.h">
+      <Filter>头文件\InjectDetectionWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GameHacker.h">
+      <Filter>头文件\mainWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GameHackerDlg.h">
+      <Filter>头文件\mainWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="CWndMoudleList.h">
+      <Filter>头文件\InjectDetectionWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="CWndModANY.h">
+      <Filter>头文件\InjectDetectionWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="CWndRAN.h">
+      <Filter>头文件\RAN</Filter>
+    </ClInclude>
+    <ClInclude Include="CWndAddClass.h">
+      <Filter>头文件\RAN</Filter>
+    </ClInclude>
+    <ClInclude Include="COBJContext.h">
+      <Filter>头文件\RAN</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="x86EntryPointInject.cpp">
+      <Filter>Inject</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndAddGame.cpp">
+      <Filter>源文件\InjectWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndInject.cpp">
+      <Filter>源文件\InjectWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndInjectDetection.cpp">
+      <Filter>源文件\InjectDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndProcessList.cpp">
+      <Filter>源文件\InjectDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="GameHacker.cpp">
+      <Filter>源文件\mainWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="GameHackerDlg.cpp">
+      <Filter>源文件\mainWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndMoudleList.cpp">
+      <Filter>源文件\InjectDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndModANY.cpp">
+      <Filter>源文件\InjectDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndRAN.cpp">
+      <Filter>源文件\RAN</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndAddClass.cpp">
+      <Filter>源文件\RAN</Filter>
+    </ClCompile>
+    <ClCompile Include="COBJContext.cpp">
+      <Filter>源文件\RAN</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameHacker.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\GameHacker.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\GameHacker.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

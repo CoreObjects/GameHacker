@@ -1,0 +1,14 @@
+//SuspendThread(hThread);
+					CONTEXT ctx;
+					ctx.ContextFlags = CONTEXT_ALL;
+					GetThreadContext(hThread, &ctx);
+					switch (nIndex) {
+					case 0: ctx.Dr0 = 0; break;
+					case 1: ctx.Dr1 = 0; break;
+					case 2: ctx.Dr2 = 0; break;
+					case 3: ctx.Dr3 = 0; break;
+					}
+					ctx.Dr7 &= 0xfff0ffff;
+					//MessageBoxA(NULL, "3", "3", MB_OK);
+					SetThreadContext(hThread, &ctx);
+					//ResumeThread(hThread);
