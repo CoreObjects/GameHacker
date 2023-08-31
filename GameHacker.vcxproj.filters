@@ -99,6 +99,9 @@
     <ClInclude Include="COBJContext.h">
       <Filter>头文件\RAN</Filter>
     </ClInclude>
+    <ClInclude Include="CMEMContext.h">
+      <Filter>头文件\RAN</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -138,6 +141,9 @@
       <Filter>源文件\RAN</Filter>
     </ClCompile>
     <ClCompile Include="COBJContext.cpp">
+      <Filter>源文件\RAN</Filter>
+    </ClCompile>
+    <ClCompile Include="CMEMContext.cpp">
       <Filter>源文件\RAN</Filter>
     </ClCompile>
   </ItemGroup>

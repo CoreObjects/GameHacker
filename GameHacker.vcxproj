@@ -189,6 +189,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="CMEMContext.h" />
     <ClInclude Include="COBJContext.h" />
     <ClInclude Include="CWndAddClass.h" />
     <ClInclude Include="CWndAddGame.h" />
@@ -208,6 +209,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CMEMContext.cpp" />
     <ClCompile Include="COBJContext.cpp" />
     <ClCompile Include="CWndAddClass.cpp" />
     <ClCompile Include="CWndAddGame.cpp" />

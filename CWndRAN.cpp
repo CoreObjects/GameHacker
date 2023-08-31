@@ -14,6 +14,7 @@ IMPLEMENT_DYNAMIC(CWndRAN, CDialogEx)
 CWndRAN::CWndRAN(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_PAGE_2, pParent) {
 	hProcess = nullptr;
+	pCurObj = nullptr;
 }
 
 CWndRAN::~CWndRAN() {
@@ -38,6 +39,8 @@ BOOL CWndRAN::OnInitDialog() {
 	m_DataList.InsertColumn(3, L"Name", 0, 100);
 	m_DataList.InsertColumn(4, L"Value", 0, 100);
 	m_DataList.InsertColumn(5, L"Comment", 0, 100);
+	initializeDataTypes();
+	SetTimer(0, 1000, NULL);
 	return FALSE;
 }
 
@@ -48,6 +51,8 @@ BEGIN_MESSAGE_MAP(CWndRAN, CDialogEx)
 	ON_COMMAND(ID_32779, &CWndRAN::OnAddClass)
 	ON_COMMAND(ID_32790, &CWndRAN::OnDeleteClass)
 	ON_COMMAND(ID_32791, &CWndRAN::OnSetClass)
+	ON_WM_TIMER()
+	ON_COMMAND(ID_32789, &CWndRAN::OnAnalysisOBJ)
 END_MESSAGE_MAP()
 
 
@@ -69,9 +74,6 @@ void CWndRAN::OnBnClickedButton1() {
 
 void CWndRAN::OnContextMenu(CWnd* pWnd, CPoint point) {
 	// TODO: 在此处添加消息处理程序代码
-
-
-
 	if (pWnd->GetDlgCtrlID() == IDC_TREE1) {
 		DWORD dwMenuID = 1;
 		if (hProcess) {
@@ -215,4 +217,17 @@ COBJContext* CWndRAN::GetSelectOBJPtr() {
 		}
 	}
 	return nullptr;
+}
+
+
+
+
+
+void CWndRAN::OnAnalysisOBJ() {
+	// TODO: 在此添加命令处理程序代码
+	auto h = GetSelectRootItem();
+	auto obj = GetOBJPtr(h);
+	if (obj) {
+		pCurObj = obj;
+	}
 }
